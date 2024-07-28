@@ -29,11 +29,7 @@ public class JwtService {
         this.revokedTokenRepository = revokedTokenRepository;
     }
 
-    public String getToken(UserDetails user) {
-        return getToken(new HashMap<>(), user);
-    }
-
-    private String getToken(Map<String,Object> extraClaims, UserDetails user) {
+    public String getToken(Map<String,Object> extraClaims, UserDetails user) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
@@ -95,6 +91,10 @@ public class JwtService {
                 .expiration(expiration)
                 .build();
         revokedTokenRepository.save(revokedToken);
+    }
+    public Long getUserId(String token) {
+        Integer idInteger = getClaim(token, claims -> claims.get("id", Integer.class));
+        return idInteger != null ? idInteger.longValue() : null;
     }
 
 }

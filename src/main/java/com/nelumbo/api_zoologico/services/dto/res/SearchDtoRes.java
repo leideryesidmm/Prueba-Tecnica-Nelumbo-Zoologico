@@ -8,5 +8,7 @@ public class SearchDtoRes {
     private List<ZoneDtoRes> zones;
     private List<AnimalDtoRes> animals;
     private List<SpeciesDtoRes> species;
-    private List<CommentDtoRes> comments;
+    private List<CommentAnswerDtoRes> comments;
+    private List<AnswerSearchDtoRes> answers;
+
 }

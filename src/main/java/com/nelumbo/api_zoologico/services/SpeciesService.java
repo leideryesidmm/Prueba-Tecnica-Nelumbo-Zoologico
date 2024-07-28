@@ -26,6 +26,7 @@ public class SpeciesService {
     private final ZoneService zoneService;
     private final ModelMapper modelMapper;
     public SpeciesDtoRes createSpecies(SpeciesDtoReq speciesDtoReq) {
+        System.out.println(speciesDtoReq);
         if (this.repository.existsByNameIgnoreCase(speciesDtoReq.getName())) {
             throw new ConflictException("La especie "+speciesDtoReq.getName()+" ya existe.");
         }
@@ -53,6 +54,9 @@ public class SpeciesService {
 
 
     public SpeciesDtoRes getSpeciesById(Long id) {
+        if(id==null){
+            throw new IllegalArgumentException("Error, el id de usuario no puede ser null");
+        }
         Species species = this.repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Especie con el id " + id + " no encontrada"));
         return this.modelMapper.map(species, SpeciesDtoRes.class);

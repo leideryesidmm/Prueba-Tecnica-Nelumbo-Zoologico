@@ -1,0 +1,35 @@
+version: '1.0'
+
+services:
+
+
+  api:
+    container_name: api_zoologico
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgres:8081/parqueadero
+      DATABASE_USERNAME: User1533
+      DATABASE_PASSWORD: D4fWSowjpJ71Hc27wq8
+      JPA_HIBERNATE_DDL_AUTO: create
+      SECRET_KEY: 6dsskofiuwslwkuekjfew65856269dv56wd865wd845c55s
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: always
+    ports:
+      - 8081:5432
+    environment:
+      POSTGRES_USER: User1533
+      POSTGRES_PASSWORD: D4fWSowjpJ71Hc27wq8
+      POSTGRES_DB: parqueadero
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U trivia_user"]
+      interval: 30s
+      timeout: 30s
+      retries: 10

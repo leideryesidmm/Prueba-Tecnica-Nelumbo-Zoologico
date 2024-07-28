@@ -51,6 +51,9 @@ public class UsersService {
 
 
     public UsersDtoRes getUserById(Long id) {
+        if(id==null){
+            throw new IllegalArgumentException("Error, el id de usuario no puede ser null");
+        }
         Users user= this.repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario con el id " + id + " no encontrado"));
         return this.modelMapper.map(user, UsersDtoRes.class);

@@ -32,13 +32,13 @@ public class ZoneController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
     public ResponseEntity<ZoneDtoRes> getZoneById(@PathVariable Long id) {
             ZoneDtoRes response = zoneService.getZoneById(id);
             return ResponseEntity.ok(response);
     }
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
     public ResponseEntity<List<ZoneDtoRes>> getAllZone() {
             List<ZoneDtoRes> response = zoneService.getAllZone();
             return ResponseEntity.ok(response);

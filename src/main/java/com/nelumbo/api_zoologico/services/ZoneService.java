@@ -50,6 +50,9 @@ public class ZoneService {
 
 
     public ZoneDtoRes getZoneById(Long id) {
+        if(id==null){
+            throw new IllegalArgumentException("Error, el id de zone no puede ser null");
+        }
         Zone zone = this.repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Zona con el id " + id + " no encontrada"));
         return this.modelMapper.map(zone, ZoneDtoRes.class);

@@ -13,9 +13,6 @@ public class CommentDtoReq {
     @Min(value = 1, message = "El ID del animal debe ser mayor que 0")
     @NotNull
     private Long animal;
-    @Min(value = 1, message = "El ID del usuario debe ser mayor que 0")
-    @NotNull
-    private Long user;
     @NotBlank(message = "El mensaje no puede estar vacío")
     private String menssage;
 

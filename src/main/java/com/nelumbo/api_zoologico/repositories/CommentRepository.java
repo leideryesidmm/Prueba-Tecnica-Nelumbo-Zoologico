@@ -16,5 +16,6 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
     Long countCommentsWithResponses();
     Long countByInitialComment(Comment initialComment);
 
-    List<Comment> findByMenssageContainingIgnoreCase(String word);
+    List<Comment> findCommentsByMenssageContainingIgnoreCaseAndInitialCommentIsNull(String word);
+    List<Comment> findCommentsByMenssageContainingIgnoreCaseAndInitialCommentIsNotNull(String word);
 }

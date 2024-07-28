@@ -1,0 +1,1356 @@
+{
+	"info": {
+		"_postman_id": "5e6af361-2573-40d5-b7cf-cff4b7ea998d",
+		"name": "📄 Zoo API",
+		"description": "# 🦁🐘🦒🐒\n\nThis is the documentation for the API developed for managing comments and responses to animals in a zoo.\n\n## **Getting started guide**\n\n`List the steps or points required to start using your APIs. Make sure to cover everything required to reach success with your API as quickly as possible.`\n\nTo start using the ((add APIs here)), you need to -\n\n`The points given below are from The Postman API's documentation. You can reference it to write your own getting started guide.`\n\n- You must use a valid API Key to send requests to the API endpoints. You can get your API key from Postman's [integrations dashboard](https://go.postman.co/settings/me/api-keys).\n    \n- The API has [rate and usage limits](https://learning.postman.com/docs/developer/postman-api/postman-api-rate-limits/).\n    \n- The API only responds to HTTPS-secured communications. Any requests sent via HTTP return an HTTP 301 redirect to the corresponding HTTPS resources.\n    \n- The API returns request responses in JSON format. When an API request returns an error, it is sent in the JSON response as an error key.\n    \n\n## Authentication\n\n`Add details on the authorization keys/tokens required, steps that cover how to get them, and the relevant error codes.`\n\nThe ((product name)) API uses ((add your API's authorization type)) for authentication.\n\n`The details given below are from the Postman API's documentation. You can reference it to write your own authentication section.`\n\nPostman uses API keys for authentication. You can generate a Postman API key in the [API keys](https://postman.postman.co/settings/me/api-keys) section of your Postman account settings.\n\nYou must include an API key in each request to the Postman API with the X-Api-Key request header.\n\n### Authentication error response\n\nIf an API key is missing, malformed, or invalid, you will receive an HTTP 401 Unauthorized response code.\n\n## Rate and usage limits\n\n`Use this section to cover your APIs' terms of use. Include API limits, constraints, and relevant error codes, so consumers understand the permitted API usage and practices.`\n\n`The example given below is from The Postman API's documentation. Use it as a reference to write your APIs' terms of use.`\n\nAPI access rate limits apply at a per-API key basis in unit time. The limit is 300 requests per minute. Also, depending on your plan, you may have usage limits. If you exceed either limit, your request will return an HTTP 429 Too Many Requests status code.\n\nEach API response returns the following set of headers to help you identify your use status:\n\n| Header | Description |\n| --- | --- |\n| `X-RateLimit-Limit` | The maximum number of requests that the consumer is permitted to make per minute. |\n| `X-RateLimit-Remaining` | The number of requests remaining in the current rate limit window. |\n| `X-RateLimit-Reset` | The time at which the current rate limit window resets in UTC epoch seconds. |\n\n### 503 response\n\nAn HTTP `503` response from our servers indicates there is an unexpected spike in API access traffic. The server is usually operational within the next five minutes. If the outage persists or you receive any other form of an HTTP `5XX` error, [contact support](https://support.postman.com/hc/en-us/requests/new/).\n\n### **Need some help?**\n\n`Add links that customers can refer to whenever they need help.`\n\nIn case you have questions, go through our tutorials ((link to your video or help documentation here)). Or visit our FAQ page ((link to the relevant page)).\n\nOr you can check out our community forum, there’s a good chance our community has an answer for you. Visit our developer forum ((link to developer forum)) to review topics, ask questions, and learn from others.\n\n`You can also document or add links to libraries, code examples, and other resources needed to make a request.`",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32746553"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Zona",
+					"item": [
+						{
+							"name": "Create zone",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Reptiles\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/zone",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"zone"
+									]
+								},
+								"description": "This endpoint is used to create a new zoo zone.\n\n## Example input\n\n``` json\n{\n  \"name\": \"Anfibios\"\n}\n\n ```\n\n### Request Body\n\n- `name`: (string) Zone's name\n    \n\n## Example output\n\n``` json\n{\n  \"id\": 10,\n  \"name\": \"Anfibios\"\n}\n\n ```\n\nIn case the zone name is already registered\n\n```\nLa zona Reptiles ya existe.\n\n ```\n\n### Response\n\n- `id`: (number) zone's ID\n    \n- `name`: (string) zone's name"
+							},
+							"response": []
+						},
+						{
+							"name": "Edit zone",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Anfibios\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/zone/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"zone",
+										"{{id}}"
+									]
+								},
+								"description": "The endpoint is used to update an existing zoo zone identified by the provided ID.\n\n## Example input\n\n``` json\n{\n  \"name\": \"Anfibios\"\n}\n\n ```\n\n### Request Body\n\n- `name`: (string) Zone's name\n    \n\n## Example output\n\n``` json\n{\n  \"id\": 10,\n  \"name\": \"Anfibios\"\n}\n\n ```\n\nIn case the zone name is already registered\n\n```\nLa zona Reptiles ya existe.\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves zone",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/zone/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"zone",
+										"{{id}}"
+									]
+								},
+								"description": "This endpoint retrieves information about a specific zone.\n\n### Request\n\nNo request body is required for this endpoint.\n\n```\nGET /api/v1/zone/123\n ```\n\n#### Parameters\n\n- `id` (path parameter) - The ID of the zone to retrieve.\n    \n\n### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n  \"id\": \"number\",\n  \"name\": \"string\"\n}\n\n ```\n\n#### Example\n\n##### Request\n\n```\nGET /api/v1/zone/123\n\n ```\n\n##### Response\n\n``` json\n{\n  \"id\": 123,\n  \"name\": \"Example Zone\"\n}\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves all zones",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/zone",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"zone"
+									]
+								},
+								"description": "This endpoint retrieves all existing zoo zones\n\n### Request\n\nNo request body is required for this endpoint.\n\n```\nGET /api/v1/zone\n\n ```\n\n### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n[  \n {\n    \"id\": \"number\",\n    \"name\": \"string\"\n  },\n  {\n    \"id\": \"number\",\n    \"name\": \"string\"\n  }\n]\n\n ```\n\n#### Example\n\n##### Request\n\n```\nGET /api/v1/zone\n\n ```\n\n##### Response\n\n``` json\n[\n  {\n    \"id\": 123,\n    \"name\": \"Example Zone\"\n  },\n  {\n    \"id\": 124,\n    \"name\": \"Example Zone2\"\n  }\n]\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete zone",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/zone/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"zone",
+										"{{id}}"
+									]
+								},
+								"description": "This endpoint is used to delete a specific zone.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n``` http\n  DELETE /api/v1/zone/{{id}}\n\n ```\n\n#### Response\n\n- Status: 204 In successful case.\n    \n- Status:404 In case the zone does not exist\n    \n- Status:409 In case of error when deleting due to conflict and in this case it returns:\n    \n\n```\nNo se puede eliminar una zona con animales asociados\n\n ```"
+							},
+							"response": []
+						}
+					],
+					"description": "Set of endpoints that allow CRUD to be performed in the zoo's zones."
+				},
+				{
+					"name": "Species",
+					"item": [
+						{
+							"name": "Delete species",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/species/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"species",
+										"{{id}}"
+									]
+								},
+								"description": "This endpoint is used to delete a specific species.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n``` http\n  DELETE /api/v1/species/{{id}}\n\n ```\n\n#### Response\n\n- Status: 204 In successful case.\n    \n- Status:404 In case the species does not exist\n    \n- Status:409 In case of error when deleting due to conflict and in this case it returns:\n    \n\n```\nNo se puede eliminar una especie con animales asociados\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves all species",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/species",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"species"
+									]
+								},
+								"description": "This endpoint retrieves all existing zoo species\n\n### Request\n\nNo request body is required for this endpoint.\n\n```\nGET /api/v1/species\n\n ```\n\n### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n[  \n {\n    \"id\": \"number\",\n    \"zone\": {\n            \"id\": \"number\",\n            \"name\": \"string\"\n        },\n    \"name\": \"string\"\n  },\n  {\n    \"id\": \"number\",\n    \"zone\": {\n            \"id\": \"number\",\n            \"name\": \"string\"\n        },\n    \"name\": \"string\"\n  }\n]\n\n ```\n\n#### Example\n\n##### Request\n\n```\nGET /api/v1/species\n\n ```\n\n##### Response\n\n``` json\n[\n    {\n        \"id\": 1,\n        \"zone\": {\n            \"id\": 1,\n            \"name\": \"Anfibios\"\n        },\n        \"name\": \"rana\"\n    },\n    {\n        \"id\": 2,\n        \"zone\": {\n            \"id\": 1,\n            \"name\": \"Anfibios\"\n        },\n        \"name\": \"Salamandra\"\n    }\n]\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves species",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/zone/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"zone",
+										"{{id}}"
+									]
+								},
+								"description": "This endpoint retrieves information about a specific species.\n\n### Request\n\nNo request body is required for this endpoint.\n\n#### Parameters\n\n- `id` (path parameter) - The ID of the species to retrieve.\n    \n\n### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n  \"id\": \"number\",\n  \"name\": \"string\"\n}\n\n ```\n\n#### Example\n\n##### Request\n\n```\nGET /api/v1/species/123\n\n ```\n\n##### Response\n\n``` json\n{\n  \"id\": 123,\n  \"name\": \"Example species\"\n}\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Edit species",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Salamandra\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/species/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"species",
+										"{{id}}"
+									]
+								},
+								"description": "The endpoint is used to update an existing zoo species identified by the provided ID.\n\n## Example input\n\n``` json\n{\n  \"name\": \"Salamandra\"\n}\n\n ```\n\n### Request Body\n\n- `name`: (string) Species's name\n    \n\n## Example output\n\n``` json\n{\n    \"id\": 1,\n    \"zone\": {\n        \"id\": 1,\n        \"name\": \"Anfibios\"\n    },\n    \"name\": \"Salamandra\"\n}\n\n ```\n\nIn case the species name is already registered\n\n```\nLa especie Salamandra ya existe.\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Create species",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Rana\",\r\n    \"zone\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/species",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"species"
+									]
+								},
+								"description": "This endpoint is used to create a new zoo species.\n\n## Example input\n\n``` json\n{\n    \"name\": \"Rana\",\n    \"zone\": 1\n}\n\n ```\n\n### Request Body\n\n- `name`: (string) Species's name\n    \n- zone: (number) Zone's id\n    \n\n## Example output\n\n``` json\n{\n    \"id\": 4,\n    \"zone\": {\n        \"id\": 1,\n        \"name\": \"Anfibios\"\n    },\n    \"name\": \"Rana\"\n}\n\n ```\n\nIn case the species name is already registered\n\n```\nLa especie Rana ya existe.\n\n ```\n\n### Response\n\n- `id`: (number) Species's ID\n    \n- `name`: (string) Species's name\n    \n- zone: (object) Zone to which the species belongs"
+							},
+							"response": []
+						}
+					],
+					"description": "Set of endpoints that allow CRUD to be performed in the zoo's species."
+				},
+				{
+					"name": "Animal",
+					"item": [
+						{
+							"name": "Delete Animal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/animal/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"animal",
+										"{{id}}"
+									]
+								},
+								"description": "This endpoint is used to delete a specific animal.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n``` http\n  DELETE /api/v1/animal/{{id}}\n\n ```\n\n#### Response\n\n- Status: 204 In successful case.\n    \n- Status:404 In case the species does not exist"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves all animal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/animal",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"animal"
+									]
+								},
+								"description": "This endpoint retrieves all existing zoo animals\n\n### Request\n\nNo request body is required for this endpoint.\n\n```\nGET /api/v1/animal\n\n ```\n\n### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n[  \n {\n   \"id\":\"number\"\n   \"species\":{\n    \"id\": \"number\",\n    \"zone\": {\n            \"id\": \"number\",\n            \"name\": \"string\"\n        },\n    \"name\": \"string\"\n   },\n   \"name\": \"string\",\n   \"createDate\": \"date\"\n },\n {\n   \"id\":\"number\"\n   \"species\":{\n    \"id\": \"number\",\n    \"zone\": {\n            \"id\": \"number\",\n            \"name\": \"string\"\n        },\n    \"name\": \"string\"\n   },\n   \"name\": \"string\",\n   \"createDate\": \"date\"\n }\n]\n\n ```\n\n#### Example\n\n##### Request\n\n```\nGET /api/v1/animal\n\n ```\n\n##### Response\n\n``` json\n[{  \n    \"id\":1,\n    \"species\": {\n        \"id\": 1,\n        \"zone\": {\n            \"id\": 1,\n            \"name\": \"Anfibios\"\n        },\n        \"name\": \"rana\"\n    },\n    \"name\": \"rené\",\n    \"createDate\": \"2024-07-26T22:51:19.6218\"\n  },\n  {\n    \"id\":2\n    \"species\": {\n        \"id\": 2,\n        \"zone\": {\n            \"id\": 1,\n            \"name\": \"Anfibios\"\n        },\n        \"name\": \"Salamandra\"\n    },\n    \"name\": \"Samy\",\n    \"createDate\": \"2024-07-26T22:51:19.6218\"\n  }\n]\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves animal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/animal/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"animal",
+										"{{id}}"
+									]
+								},
+								"description": "This endpoint retrieves information about a specific animal.\n\n### Request\n\nNo request body is required for this endpoint.\n\n#### Parameters\n\n- `id` (path parameter) - The ID of the animal to retrieve.\n    \n\n### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n   \"id\":\"number\"\n   \"species\":{\n    \"id\": \"number\",\n    \"zone\": {\n            \"id\": \"number\",\n            \"name\": \"string\"\n        },\n    \"name\": \"string\"\n   },\n   \"name\": \"string\",\n   \"createDate\": \"date\"\n }\n\n ```\n\n#### Example\n\n##### Request\n\n```\nGET /api/v1/species/123\n\n ```\n\n##### Response\n\n``` json\n{\n    \"id\": 1,\n    \"species\": {\n        \"id\": 4,\n        \"zone\": {\n            \"id\": 2,\n            \"name\": \"Anfibios\"\n        },\n        \"name\": \"Rana\"\n    },\n    \"name\": \"ring ring renacuajo\",\n    \"createDate\": \"2024-07-26T22:51:19.6218\"\n}\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Edit animal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Anita\",\r\n    \"species\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/animal/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"animal",
+										"{{id}}"
+									]
+								},
+								"description": "The endpoint is used to update an existing zoo species identified by the provided ID.\n\n## Example input\n\n``` json\n{\n    \"name\": \"Anita\",\n    \"species\":1\n}\n\n ```\n\n### Request Body\n\n- `name`: (string) Animal's name\n    \n- species: (number) Animal's species ID\n    \n\n## Example output\n\n``` json\n{\n    \"id\": 1,\n    \"species\": {\n        \"id\": 1,\n        \"zone\": {\n            \"id\": 1,\n            \"name\": \"Anfibios\"\n        },\n        \"name\": \"Salamandra\"\n    },\n    \"name\": \"Anita\",\n    \"createDate\": \"2024-07-26T22:51:19.6218\"\n}\n\n ```\n\nIn case the animal name is already registered\n\n```\nEl animal Juana ya existe.\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Create animal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Ana\",\r\n    \"species\": 4\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/animal",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"animal"
+									]
+								},
+								"description": "This endpoint is used to create a new zoo animal.\n\n## Example input\n\n``` json\n{\n    \"name\": \"Juana\",\n    \"zone\": 4\n}\n\n ```\n\n### Request Body\n\n- `name`: (string) Animal's name\n    \n- species: (number) Animal's species ID\n    \n\n## Example output\n\n``` json\n{\n    \"id\": 4,\n    \"species\": {\n        \"id\": 4,\n        \"zone\": {\n            \"id\": 1,\n            \"name\": \"Anfibios\"\n        },\n        \"name\": \"Rana\"\n    },\n    \"name\": \"Juana\",\n    \"createDate\": \"2024-07-28T00:45:50.8292733\"\n}\n\n ```\n\nIn case the animal name is already registered\n\n```\nEl animal Juana ya existe.\n\n ```\n\n### Response\n\n- `id`: (number) Animal's ID\n    \n- `name`: (string) Animal's name\n    \n- species: (object) Species to which the animal belongs\n    \n- createDate: (date) Date on which the animal was created"
+							},
+							"response": []
+						}
+					],
+					"description": "Set of endpoints that allow CRUD to be performed in the zoo's species."
+				},
+				{
+					"name": "Comment",
+					"item": [
+						{
+							"name": "Create comment or answer",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"animal\":4,\r\n    \"menssage\": \"La rana se salio del habitad, hay que tener cuidado\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/comment",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"comment"
+									]
+								},
+								"description": "This endpoint allows the client to create a new comment or a new answer.\n\n### Request\n\n#### Case 1: Comment\n\n``` json\n{\n   \"animal\":4,\n    \"menssage\": \"La rana se salio del habitad, hay que tener cuidado\"\n}\n\n ```\n\n#### Case 2: Answer\n\n``` json\n{\n    \"initialComment\":10\n    \"animal\":4,\n    \"menssage\": \"El viernes la encontre en el pasillo 2\"\n}\n\n ```\n\n### Response\n\n``` json\n{\n    \"id\": 10,\n    \"animal\": {\n        \"id\": 4,\n        \"species\": {\n            \"id\": 4,\n            \"zone\": {\n                \"id\": 1,\n                \"name\": \"Anfibios\"\n            },\n            \"name\": \"Rana\"\n        },\n        \"name\": \"Juana\",\n        \"createDate\": \"2024-07-28T00:45:50.829273\"\n    },\n    \"user\": {\n        \"id\": 1,\n        \"name\": \"leider\",\n        \"userEmail\": \"admin@mail.com\"\n    },\n    \"date\": \"2024-07-28T01:31:58.1197289\",\n    \"menssage\": \"La rana se salio del habitad, hay que tener cuidado\"\n}\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves all comment by animal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/comment/answers/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"comment",
+										"answers",
+										"{{id}}"
+									]
+								},
+								"description": "This endpoint retrieves the the comments and their answers for a specific animal by its ID.\n\n#### Request\n\n- Method: GET\n    \n- URL: `{{host}}/api/v1/comment/answers/{{id}}`\n    \n\n#### Response\n\n- Status: 200\n    \n- Content-Type: application/json\n    \n\n#### Example response\n\n``` json\n[\n    {\n        \"commentDtoRes\": {\n            \"id\": 3,\n            \"animal\": {\n                \"id\": 1,\n                \"species\": {\n                    \"id\": 1,\n                    \"zone\": {\n                        \"id\": 1,\n                        \"name\": \"Anfibios\"\n                    },\n                    \"name\": \"Salamandra\"\n                },\n                \"name\": \"Anita\",\n                \"createDate\": \"2024-07-26T22:51:19.6218\"\n            },\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"leider\",\n                \"userEmail\": \"admin@mail.com\"\n            },\n            \"date\": \"2024-07-26T22:54:45.493355\",\n            \"menssage\": \"La rana está enferma\"\n        },\n        \"answerDtoRes\": []\n    },\n    {\n        \"commentDtoRes\": {\n            \"id\": 4,\n            \"animal\": {\n                \"id\": 1,\n                \"species\": {\n                    \"id\": 1,\n                    \"zone\": {\n                        \"id\": 1,\n                        \"name\": \"Anfibios\"\n                    },\n                    \"name\": \"Salamandra\"\n                },\n                \"name\": \"Anita\",\n                \"createDate\": \"2024-07-26T22:51:19.6218\"\n            },\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"leider\",\n                \"userEmail\": \"admin@mail.com\"\n            },\n            \"date\": \"2024-07-26T22:55:00.838933\",\n            \"menssage\": \"La salamandra no quiso comer\"\n        },\n        \"answerDtoRes\": [\n            {\n                \"id\": 8,\n                \"user\": {\n                    \"id\": 1,\n                    \"name\": \"leider\",\n                    \"userEmail\": \"admin@mail.com\"\n                },\n                \"menssage\": \"La salamandra ya esta mejor, ya comió\",\n                \"date\": \"2024-07-26T23:03:20.887083\"\n            }\n        ]\n    }\n]\n\n ```"
+							},
+							"response": []
+						}
+					],
+					"description": "Set of endpoints that allow the management of comments and responses to comments."
+				},
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userEmail\":\"admin@mail.com\",\r\n    \"pass\":\"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/auth/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								},
+								"description": "This endpoint is used to authenticate a user and gain access to protected resources.\n\n### Request Body\n\n- `userEmain` (String): The user's email.\n    \n- `pass` (String): The user's password.\n    \n\n#### Example input\n\n``` json\n{\n     \"userEmail\": \"example@email.com\",\n     \"pass\": \"password123\"\n}\n\n ```\n\n### Response\n\nThe response will include the authentication details, such as the access token.\n\n#### Example output\n\n``` json\n{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\"\n}\n\n ```\n\nIn case of incorrect credentials it will return\n\n```\nInternal server error: Bad credentials\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Register employee",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Empleado1\",\r\n    \"userEmail\":\"empleado1@gmail.com\",\r\n    \"pass\":\"empleado1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/auth/register",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"register"
+									]
+								},
+								"description": "This endpoint is used to register a new user of the \"EMPLEADO\" role. This endpoint can only be used by a user of the \"ADMIN\" role.\n\n### Example input\n\n``` json\n{\n  \"name\": \"Karla Ramirez\",\n  \"userEmail\": \"karlar@mail.com\",\n  \"pass\": \"15karla53\"\n}\n\n ```\n\n### Example output\n\n``` json\n{\n  \"id\": 5,\n  \"name\": \"Karla Ramirez\",\n  \"userEmail\": \"karlar@mail.com\"\n}\n\n ```\n\nIn case the Email is already registered\n\n``` json\nYa existe un usuario con el emailempleado1@gmail.com\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/auth/logout",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"logout"
+									]
+								},
+								"description": "This endpoint is used to log out a user.\n\n#### Request\n\n- Body is not required on this endpoint\n    \n- Authentication token required\n    \n\n#### Response\n\n- Status: 200\n    \n- The response does not contain any specific data."
+							},
+							"response": []
+						}
+					],
+					"description": "Conjunto de endponits que permiten la autenticación y registro de los usuarios en la api."
+				},
+				{
+					"name": "Search",
+					"item": [
+						{
+							"name": "Search by word",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/search?word={{word}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"search"
+									],
+									"query": [
+										{
+											"key": "word",
+											"value": "{{word}}"
+										}
+									]
+								},
+								"description": "This endpoint makes an HTTP GET request to retrieve search results based on the provided word parameter.\n\n## Request\n\n#### Body\n\nThis request does not contain a request body.\n\n#### Parameters\n\nThis request requires the following parameter:  \n`word` (query param) - This is the keyword to search.\n\n## Response Body\n\nThe response is a JSON object with the following structure:\n\n``` json\n{\n  \"zones\": [],\n  \"animals\": [],\n  \"species\": [],\n  \"comments\":[],\n  \"answer\":[]\n}\n\n ```"
+							},
+							"response": []
+						}
+					],
+					"description": "This is the service that searches for matches of a word in the records of Zone, Species, Animal, Comments and Answer"
+				},
+				{
+					"name": "Indicators",
+					"item": [
+						{
+							"name": "Count animals by species",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/animal/count-by-species/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"animal",
+										"count-by-species",
+										"{{id}}"
+									]
+								},
+								"description": "This endpoint retrieves the count of animals for a specific species.\n\n#### Request\n\n- Method: GET\n    \n- Endpoint: `{{host}}/api/v1/animal/count-by-species/{{id}}`\n    \n\n#### Response\n\n- Status: 200\n    \n- Amount of animales:\n    \n\n```\n4\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Count animals by zone",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/animal/count-by-zone/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"animal",
+										"count-by-zone",
+										"{{id}}"
+									]
+								},
+								"description": "This endpoint retrieves the count of animals for a specific zone.\n\n#### Request\n\n- Method: GET\n    \n- Endpoint: `{{host}}/api/v1/animal/count-by-zone/{{id}}`\n    \n- `{{id}}:` This is the zone's ID\n    \n\n#### Response\n\n- Status: 200\n    \n- Amount of animales:\n    \n\n```\n10\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves animas by createDate",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/animal/created-by-date/{{date}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"animal",
+										"created-by-date",
+										"{{date}}"
+									]
+								},
+								"description": "This endpoint retrieves the count of animals for a specific zone.\n\n#### Request\n\n- Method: GET\n    \n- Endpoint: `{{host}}/api/v1/animal/count-by-zone/{{date}}`\n    \n- Example:\n    \n\n```\nlocalhost:8080/api/v1/animal/count-by-zone/2024-07-26\n\n ```\n\n#### Response\n\n- Status: 200\n    \n\n``` json\n[\n    {\n        \"id\": 1,\n        \"species\": {\n            \"id\": 1,\n            \"zone\": {\n                \"id\": 1,\n                \"name\": \"Anfibios\"\n            },\n            \"name\": \"Salamandra\"\n        },\n        \"name\": \"Anita\",\n        \"createDate\": \"2024-07-26T22:51:19.6218\"\n    }\n]\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Percentage of comments answered",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/comment/percentage-answer-comment",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"comment",
+										"percentage-answer-comment"
+									]
+								},
+								"description": "This endpoint retrieves the percentage of comments that have been answered.\n\n#### Request\n\nNo request body is required for this endpoint.\n\n#### Response\n\nThe response is a double number:\n\n``` json\n14.285714285714285\n\n ```"
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Set of endpoints that a user with the \"ADMIN\" role can access and use.  \nThese endpoints are grouped into:\n\n- Zone\n    \n- Species\n    \n- Anima\n    \n- Comment\n    \n- Indicators\n    \n- Search"
+		},
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "Zone",
+					"item": [
+						{
+							"name": "Retrieves zone",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/zone/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"zone",
+										"{{id}}"
+									]
+								},
+								"description": "This endpoint retrieves information about a specific zone.\n\n### Request\n\nNo request body is required for this endpoint.\n\n```\nGET /api/v1/zone/123\n ```\n\n#### Parameters\n\n- `id` (path parameter) - The ID of the zone to retrieve.\n    \n\n### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n  \"id\": \"number\",\n  \"name\": \"string\"\n}\n\n ```\n\n#### Example\n\n##### Request\n\n```\nGET /api/v1/zone/123\n\n ```\n\n##### Response\n\n``` json\n{\n  \"id\": 123,\n  \"name\": \"Example Zone\"\n}\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves all zones",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/zone",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"zone"
+									]
+								},
+								"description": "This endpoint retrieves all existing zoo zones\n\n### Request\n\nNo request body is required for this endpoint.\n\n```\nGET /api/v1/zone/123\n ```\n\n#### Parameters\n\n- `id` (path parameter) - The ID of the zone to retrieve.\n    \n\n### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n[  \n {\n    \"id\": \"number\",\n    \"name\": \"string\"\n  },\n  {\n    \"id\": \"number\",\n    \"name\": \"string\"\n  }\n]\n\n ```\n\n#### Example\n\n##### Request\n\n```\nGET /api/v1/zone/123\n\n ```\n\n##### Response\n\n``` json\n[\n  {\n    \"id\": 123,\n    \"name\": \"Example Zone\"\n  },\n  {\n    \"id\": 124,\n    \"name\": \"Example Zone2\"\n  }\n]\n\n ```"
+							},
+							"response": []
+						}
+					],
+					"description": "Conjunteo de endpoints que permiten realizar los CRUD de las zonas que tiene el zoologico."
+				},
+				{
+					"name": "Species",
+					"item": [
+						{
+							"name": "Retrieves all species",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/species",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"species"
+									]
+								},
+								"description": "This endpoint retrieves all existing zoo species\n\n### Request\n\nNo request body is required for this endpoint.\n\n```\nGET /api/v1/species\n\n ```\n\n### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n[  \n {\n    \"id\": \"number\",\n    \"zone\": {\n            \"id\": \"number\",\n            \"name\": \"string\"\n        },\n    \"name\": \"string\"\n  },\n  {\n    \"id\": \"number\",\n    \"zone\": {\n            \"id\": \"number\",\n            \"name\": \"string\"\n        },\n    \"name\": \"string\"\n  }\n]\n\n ```\n\n#### Example\n\n##### Request\n\n```\nGET /api/v1/species\n\n ```\n\n##### Response\n\n``` json\n[\n    {\n        \"id\": 1,\n        \"zone\": {\n            \"id\": 1,\n            \"name\": \"Anfibios\"\n        },\n        \"name\": \"rana\"\n    },\n    {\n        \"id\": 2,\n        \"zone\": {\n            \"id\": 1,\n            \"name\": \"Anfibios\"\n        },\n        \"name\": \"Salamandra\"\n    }\n]\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves species",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/zone/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"zone",
+										"{{id}}"
+									]
+								},
+								"description": "This endpoint retrieves information about a specific species.\n\n### Request\n\nNo request body is required for this endpoint.\n\n#### Parameters\n\n- `id` (path parameter) - The ID of the species to retrieve.\n    \n\n### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n  \"id\": \"number\",\n  \"name\": \"string\"\n}\n\n ```\n\n#### Example\n\n##### Request\n\n```\nGET /api/v1/species/123\n\n ```\n\n##### Response\n\n``` json\n{\n  \"id\": 123,\n  \"name\": \"Example species\"\n}\n\n ```"
+							},
+							"response": []
+						}
+					],
+					"description": "Set of endpoints that allow CRUD to be performed in the zoo's species."
+				},
+				{
+					"name": "Animal",
+					"item": [
+						{
+							"name": "Retrieves all animal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/animal",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"animal"
+									]
+								},
+								"description": "This endpoint retrieves all existing zoo animals\n\n### Request\n\nNo request body is required for this endpoint.\n\n```\nGET /api/v1/animal\n\n ```\n\n### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n[  \n {\n   \"id\":\"number\"\n   \"species\":{\n    \"id\": \"number\",\n    \"zone\": {\n            \"id\": \"number\",\n            \"name\": \"string\"\n        },\n    \"name\": \"string\"\n   },\n   \"name\": \"string\",\n   \"createDate\": \"date\"\n },\n {\n   \"id\":\"number\"\n   \"species\":{\n    \"id\": \"number\",\n    \"zone\": {\n            \"id\": \"number\",\n            \"name\": \"string\"\n        },\n    \"name\": \"string\"\n   },\n   \"name\": \"string\",\n   \"createDate\": \"date\"\n }\n]\n\n ```\n\n#### Example\n\n##### Request\n\n```\nGET /api/v1/animal\n\n ```\n\n##### Response\n\n``` json\n[{  \n    \"id\":1,\n    \"species\": {\n        \"id\": 1,\n        \"zone\": {\n            \"id\": 1,\n            \"name\": \"Anfibios\"\n        },\n        \"name\": \"rana\"\n    },\n    \"name\": \"rené\",\n    \"createDate\": \"2024-07-26T22:51:19.6218\"\n  },\n  {\n    \"id\":2\n    \"species\": {\n        \"id\": 2,\n        \"zone\": {\n            \"id\": 1,\n            \"name\": \"Anfibios\"\n        },\n        \"name\": \"Salamandra\"\n    },\n    \"name\": \"Samy\",\n    \"createDate\": \"2024-07-26T22:51:19.6218\"\n  }\n]\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves animal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/animal/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"animal",
+										"{{id}}"
+									]
+								},
+								"description": "This endpoint retrieves information about a specific animal.\n\n### Request\n\nNo request body is required for this endpoint.\n\n#### Parameters\n\n- `id` (path parameter) - The ID of the animal to retrieve.\n    \n\n### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n   \"id\":\"number\"\n   \"species\":{\n    \"id\": \"number\",\n    \"zone\": {\n            \"id\": \"number\",\n            \"name\": \"string\"\n        },\n    \"name\": \"string\"\n   },\n   \"name\": \"string\",\n   \"createDate\": \"date\"\n }\n\n ```\n\n#### Example\n\n##### Request\n\n```\nGET /api/v1/species/123\n\n ```\n\n##### Response\n\n``` json\n{\n    \"id\": 1,\n    \"species\": {\n        \"id\": 4,\n        \"zone\": {\n            \"id\": 2,\n            \"name\": \"Anfibios\"\n        },\n        \"name\": \"Rana\"\n    },\n    \"name\": \"ring ring renacuajo\",\n    \"createDate\": \"2024-07-26T22:51:19.6218\"\n}\n\n ```"
+							},
+							"response": []
+						}
+					],
+					"description": "Set of endpoints that allow CRUD to be performed in the zoo's species."
+				},
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userEmail\":\"admin@mail.com\",\r\n    \"pass\":\"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/auth/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								},
+								"description": "This endpoint is used to authenticate a user and gain access to protected resources.\n\n### Request Body\n\n- `userEmain` (String): The user's email.\n    \n- `pass` (String): The user's password.\n    \n\n#### Example input\n\n``` json\n{\n     \"userEmail\": \"example@email.com\",\n     \"pass\": \"password123\"\n}\n\n ```\n\n### Response\n\nThe response will include the authentication details, such as the access token.\n\n#### Example output\n\n``` json\n{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\"\n}\n\n ```\n\nIn case of incorrect credentials it will return\n\n```\nInternal server error: Bad credentials\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/auth/logout",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"logout"
+									]
+								},
+								"description": "This endpoint is used to log out a user.\n\n#### Request\n\n- Body is not required on this endpoint\n    \n- Authentication token required\n    \n\n#### Response\n\n- Status: 200\n    \n- The response does not contain any specific data."
+							},
+							"response": []
+						}
+					],
+					"description": "Conjunto de endponits que permiten la autenticación y registro de los usuarios en la api."
+				},
+				{
+					"name": "Comment",
+					"item": [
+						{
+							"name": "Create comment or answer",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"animal\":4,\r\n    \"menssage\": \"La rana se salio del habitad, hay que tener cuidado\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/v1/comment",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"comment"
+									]
+								},
+								"description": "This endpoint allows the client to create a new comment or a new answer.\n\n### Request\n\n#### Case 1: Comment\n\n``` json\n{\n   \"animal\":4,\n    \"menssage\": \"La rana se salio del habitad, hay que tener cuidado\"\n}\n\n ```\n\n#### Case 2: Answer\n\n``` json\n{\n    \"initialComment\":10\n    \"animal\":4,\n    \"menssage\": \"El viernes la encontre en el pasillo 2\"\n}\n\n ```\n\n### Response\n\n``` json\n{\n    \"id\": 10,\n    \"animal\": {\n        \"id\": 4,\n        \"species\": {\n            \"id\": 4,\n            \"zone\": {\n                \"id\": 1,\n                \"name\": \"Anfibios\"\n            },\n            \"name\": \"Rana\"\n        },\n        \"name\": \"Juana\",\n        \"createDate\": \"2024-07-28T00:45:50.829273\"\n    },\n    \"user\": {\n        \"id\": 1,\n        \"name\": \"leider\",\n        \"userEmail\": \"admin@mail.com\"\n    },\n    \"date\": \"2024-07-28T01:31:58.1197289\",\n    \"menssage\": \"La rana se salio del habitad, hay que tener cuidado\"\n}\n\n ```"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieves all comment by animal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/comment/answers/{{id}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"comment",
+										"answers",
+										"{{id}}"
+									]
+								},
+								"description": "This endpoint retrieves the the comments and their answers for a specific animal by its ID.\n\n#### Request\n\n- Method: GET\n    \n- URL: `{{host}}/api/v1/comment/answers/{{id}}`\n    \n\n#### Response\n\n- Status: 200\n    \n- Content-Type: application/json\n    \n\n#### Example response\n\n``` json\n[\n    {\n        \"commentDtoRes\": {\n            \"id\": 3,\n            \"animal\": {\n                \"id\": 1,\n                \"species\": {\n                    \"id\": 1,\n                    \"zone\": {\n                        \"id\": 1,\n                        \"name\": \"Anfibios\"\n                    },\n                    \"name\": \"Salamandra\"\n                },\n                \"name\": \"Anita\",\n                \"createDate\": \"2024-07-26T22:51:19.6218\"\n            },\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"leider\",\n                \"userEmail\": \"admin@mail.com\"\n            },\n            \"date\": \"2024-07-26T22:54:45.493355\",\n            \"menssage\": \"La rana está enferma\"\n        },\n        \"answerDtoRes\": []\n    },\n    {\n        \"commentDtoRes\": {\n            \"id\": 4,\n            \"animal\": {\n                \"id\": 1,\n                \"species\": {\n                    \"id\": 1,\n                    \"zone\": {\n                        \"id\": 1,\n                        \"name\": \"Anfibios\"\n                    },\n                    \"name\": \"Salamandra\"\n                },\n                \"name\": \"Anita\",\n                \"createDate\": \"2024-07-26T22:51:19.6218\"\n            },\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"leider\",\n                \"userEmail\": \"admin@mail.com\"\n            },\n            \"date\": \"2024-07-26T22:55:00.838933\",\n            \"menssage\": \"La salamandra no quiso comer\"\n        },\n        \"answerDtoRes\": [\n            {\n                \"id\": 8,\n                \"user\": {\n                    \"id\": 1,\n                    \"name\": \"leider\",\n                    \"userEmail\": \"admin@mail.com\"\n                },\n                \"menssage\": \"La salamandra ya esta mejor, ya comió\",\n                \"date\": \"2024-07-26T23:03:20.887083\"\n            }\n        ]\n    }\n]\n\n ```"
+							},
+							"response": []
+						}
+					],
+					"description": "Set of endpoints that allow the management of comments and responses to comments."
+				},
+				{
+					"name": "Search",
+					"item": [
+						{
+							"name": "Search by word",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdminorEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/search?word={{word}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"search"
+									],
+									"query": [
+										{
+											"key": "word",
+											"value": "{{word}}"
+										}
+									]
+								},
+								"description": "This endpoint makes an HTTP GET request to retrieve search results based on the provided word parameter.\n\n## Request\n\n#### Body\n\nThis request does not contain a request body.\n\n#### Parameters\n\nThis request requires the following parameter:  \n`word` (query param) - This is the keyword to search.\n\n## Response Body\n\nThe response is a JSON object with the following structure:\n\n``` json\n{\n  \"zones\": [],\n  \"animals\": [],\n  \"species\": [],\n  \"comments\":[],\n  \"answer\":[]\n}\n\n ```"
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Conjunto de endpoints a los que un usuaruio de rol \"EPLEADO\" puede acceder y utilizar.\n\nEstos enpoints estan agrupados en:\n\n- Zona\n    \n- Especie\n    \n- Animal\n    \n- Comentarios\n    \n- Busqueda"
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "X-API-Key",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://farming-simulator.pstmn.io"
+		},
+		{
+			"key": "tokenAdmin",
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoiYWRtaW5AbWFpbC5jb20iLCJpYXQiOjE3MjIxOTQxMjQsImV4cCI6MTcyMjI4MDUyNH0.XSKITH_t-RzdYoHVKteqx9ftF0tRh8qFVDUk1flusSw"
+		},
+		{
+			"key": "tokenAdminorEmployee",
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6Miwic3ViIjoiZW1wbGVhZG8xQGdtYWlsLmNvbSIsImlhdCI6MTcyMjE5Mjk4NiwiZXhwIjoxNzIyMjc5Mzg2fQ.aCeq8c2KsWg-jn5t-zqdQS-0VlrBRw4sZldJ9f2S0e0"
+		},
+		{
+			"key": "host",
+			"value": "localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "word",
+			"value": "rana"
+		}
+	]
+}

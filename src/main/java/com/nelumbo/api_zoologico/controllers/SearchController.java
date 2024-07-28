@@ -16,7 +16,7 @@ import java.util.Objects;
 public class SearchController {
     private final SearchService searchService;
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
     public ResponseEntity<SearchDtoRes> search(@RequestParam("word") String word) {
         if (Objects.isNull(word) || word.isBlank()) {
             return ResponseEntity.badRequest().build();

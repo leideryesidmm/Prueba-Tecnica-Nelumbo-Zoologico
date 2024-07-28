@@ -14,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -27,7 +30,12 @@ public class AuthService {
         System.out.println(request.getUserEmail()+request.getPass());
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserEmail(), request.getPass()));
         UserDetails user=usersService.findByUserEmail(request.getUserEmail());
-        String token=jwtService.getToken(user);
+        Users userEntity = (Users) user;
+
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("id", userEntity.getId());
+
+        String token=jwtService.getToken(extraClaims,user);
         return AuthDtoRes.builder()
                 .token(token)
                 .build();

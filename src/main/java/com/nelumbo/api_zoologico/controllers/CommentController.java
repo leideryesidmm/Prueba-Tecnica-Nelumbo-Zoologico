@@ -19,21 +19,21 @@ import java.util.List;
 public class CommentController {
     private final CommentService commentService;
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
     public ResponseEntity<CommentDtoRes> createCommentOrAnswer(@Valid @RequestBody CommentDtoReq commentDtoReq) {
         CommentDtoRes response = commentService.createComment(commentDtoReq);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     @GetMapping("/answers/{idAnimal}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
     public ResponseEntity<List<CommentAnswerDtoRes>> getAllCommentsByAnimal(@PathVariable Long idAnimal) {
         List<CommentAnswerDtoRes> response = commentService.getAllCommentAnswers(idAnimal);
         return ResponseEntity.ok(response);
     }
-    @GetMapping("/avg-answer-comment")
+    @GetMapping("/percentage-answer-comment")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Double> getAvg() {
-        Double response = commentService.getAvg();
+    public ResponseEntity<Double> getPercentage() {
+        Double response = commentService.getPercentage();
         return ResponseEntity.ok(response);
     }
 

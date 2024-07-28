@@ -18,6 +18,7 @@ public class SearchService {
         searchDtoRes.setSpecies(speciesService.searchSpeciesByWord(word));
         searchDtoRes.setAnimals(animalService.searchAnimalsByWord(word));
         searchDtoRes.setComments(commentService.searchCommentsByWord(word));
-        return null;
+        searchDtoRes.setAnswers(commentService.searchAnswersByWord(word));
+        return searchDtoRes;
     }
 }

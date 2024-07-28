@@ -33,13 +33,13 @@ public class AnimalController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
     public ResponseEntity<AnimalDtoRes> getSpeciesById(@PathVariable Long id) {
         AnimalDtoRes response = animalService.getAnimalById(id);
         return ResponseEntity.ok(response);
     }
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
     public ResponseEntity<List<AnimalDtoRes>> getAllAnimals() {
         List<AnimalDtoRes> response = animalService.getAllAnimals();
         return ResponseEntity.ok(response);

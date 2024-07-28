@@ -2,9 +2,7 @@ package com.nelumbo.api_zoologico.controllers;
 
 import com.nelumbo.api_zoologico.services.SpeciesService;
 import com.nelumbo.api_zoologico.services.dto.req.SpeciesDtoReq;
-import com.nelumbo.api_zoologico.services.dto.req.ZonaDtoReq;
 import com.nelumbo.api_zoologico.services.dto.res.SpeciesDtoRes;
-import com.nelumbo.api_zoologico.services.dto.res.ZoneDtoRes;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,13 +32,13 @@ public class SpeciesContoller {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
     public ResponseEntity<SpeciesDtoRes> getSpeciesById(@PathVariable Long id) {
         SpeciesDtoRes response = speciesService.getSpeciesById(id);
         return ResponseEntity.ok(response);
     }
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
     public ResponseEntity<List<SpeciesDtoRes>> getAllSpecies() {
         List<SpeciesDtoRes> response = speciesService.getAllSpecies();
         return ResponseEntity.ok(response);

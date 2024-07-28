@@ -62,6 +62,9 @@ public class AnimalService {
     }
 
     public AnimalDtoRes getAnimalById(Long id) {
+        if(id==null){
+            throw new IllegalArgumentException("Error, el id de usuario no puede ser null");
+        }
         Animal animal = this.repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Animal con el id " + id + " no encontrado"));
         return this.modelMapper.map(animal, AnimalDtoRes.class);
