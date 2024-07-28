@@ -12,7 +12,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DATABASE_URL: jdbc:postgresql://postgres:8081/parqueadero
+      DATABASE_URL: jdbc:postgresql://postgres:8081/zoologico
       DATABASE_USERNAME: User1533
       DATABASE_PASSWORD: D4fWSowjpJ71Hc27wq8
       JPA_HIBERNATE_DDL_AUTO: create
@@ -26,7 +26,7 @@ services:
     environment:
       POSTGRES_USER: User1533
       POSTGRES_PASSWORD: D4fWSowjpJ71Hc27wq8
-      POSTGRES_DB: parqueadero
+      POSTGRES_DB: zoologico
 
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U trivia_user"]
