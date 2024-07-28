@@ -22,7 +22,7 @@ services:
     image: postgres
     restart: always
     ports:
-      - 8081:5432
+      - 5432:5432
     environment:
       POSTGRES_USER: User1533
       POSTGRES_PASSWORD: D4fWSowjpJ71Hc27wq8
