@@ -1,0 +1,1 @@
+INSERT INTO users(name, user_email, pass, role, disable) VALUES ('Admin Name','admin@mail.com', '$2a$10$jiOBIS1O06xpyNlk2z4ICOIjtptXs3uNiXd6eSmuccNZo8oTiIJvy', 'ADMIN',false);

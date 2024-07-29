@@ -12,11 +12,16 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DATABASE_URL: jdbc:postgresql://postgres:8081/zoologico
+      DATABASE_URL: jdbc:postgresql://postgres:5432/zoologico
       DATABASE_USERNAME: User1533
       DATABASE_PASSWORD: D4fWSowjpJ71Hc27wq8
       JPA_HIBERNATE_DDL_AUTO: create
       SECRET_KEY: 6dsskofiuwslwkuekjfew65856269dv56wd865wd845c55s
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:8080/api/v1/health || exit 1" ]
+      interval: 30s
+      timeout: 30s
+      retries: 10
   postgres:
     container_name: postgres
     image: postgres
@@ -29,7 +34,23 @@ services:
       POSTGRES_DB: zoologico
 
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U trivia_user"]
+      test: [ "CMD-SHELL", "pg_isready -U User1533" ]
       interval: 30s
       timeout: 30s
       retries: 10
+
+  init:
+    container_name: db_initializer
+    image: postgres:latest
+    depends_on:
+      api:
+        condition: service_healthy
+    entrypoint: /bin/bash -c "export PGPASSWORD='D4fWSowjpJ71Hc27wq8'; until pg_isready -h postgres -U User1533; do sleep 2; done; psql -h postgres -U User1533 -d zoologico -f /init/init-user.sql"
+    volumes:
+      - ./Anexos/init-user.sql:/init/init-user.sql:ro
+    environment:
+      POSTGRES_USER: User1533
+      POSTGRES_PASSWORD: D4fWSowjpJ71Hc27wq8
+      POSTGRES_DB: zoologico
+    links:
+      - postgres
