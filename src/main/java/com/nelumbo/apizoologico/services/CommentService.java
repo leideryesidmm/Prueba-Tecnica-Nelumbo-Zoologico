@@ -5,11 +5,18 @@ import com.nelumbo.apizoologico.exceptions.InvalidCommentException;
 import com.nelumbo.apizoologico.exceptions.InvalidRoleException;
 import com.nelumbo.apizoologico.exceptions.ResourceNotFoundException;
 import com.nelumbo.apizoologico.entities.*;
+import com.nelumbo.apizoologico.feignclients.MailFeignClient;
+import com.nelumbo.apizoologico.feignclients.dto.AnimalDtoReq;
+import com.nelumbo.apizoologico.feignclients.dto.MailDtoReq;
+import com.nelumbo.apizoologico.feignclients.dto.WriterDtoReq;
 import com.nelumbo.apizoologico.repositories.CommentRepository;
 import com.nelumbo.apizoologico.services.dto.req.CommentDtoReq;
 import com.nelumbo.apizoologico.services.dto.res.*;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +35,8 @@ public class CommentService {
     private final UsersService usersService;
     private final TokenService tokenService;
     private final ModelMapper modelMapper;
+    private final MailFeignClient mailFeignClient;
+    private static final Logger logger= LoggerFactory.getLogger(CommentService.class);
 
     public CommentDtoRes createComment(CommentDtoReq commentDtoReq) {
         AnimalDtoRes animal=animalService.getAnimalById(commentDtoReq.getAnimal());
@@ -39,6 +48,7 @@ public class CommentService {
         if(user.getRole().equalsIgnoreCase(Role.EMPLEADO.toString())&&!animal.getSpecies().getZone().getJefe().getId().equals(user.getJefe().getId())){
                 throw new ConflictException("No puede añadir comentarios a animales de zonas no asignadas.");
         }
+
         Comment comment=new Comment();
         comment.setAnimal(this.modelMapper.map(animal,Animal.class));
         comment.setUser(this.modelMapper.map(user,Users.class));
@@ -55,8 +65,31 @@ public class CommentService {
             }
         }
         Comment savedComment=this.repository.save(comment);
-
+        if(user.getRole().equalsIgnoreCase(Role.EMPLEADO.toString())||user.getRole().equalsIgnoreCase(Role.ADMIN.toString()))
+        {
+            sendMail(savedComment);
+        }
         return this.modelMapper.map(savedComment, CommentDtoRes.class);
+    }
+
+    private void sendMail(Comment savedComment) {
+        MailDtoReq mailDtoReq=new MailDtoReq();
+        mailDtoReq.setDestinationEmail(savedComment.getAnimal().getSpecies().getZone().getJefe().getUserEmail());
+        mailDtoReq.setWriter(
+                new WriterDtoReq(
+                        savedComment.getUser().getId(),
+                        savedComment.getUser().getName()
+                ));
+        mailDtoReq.setAnimal(
+                new AnimalDtoReq(savedComment.getAnimal().getId(),
+                        savedComment.getAnimal().getSpecies().getName(),savedComment.getAnimal().getName()));
+        mailDtoReq.setMessage(savedComment.getMenssage());
+        try{
+            MessageDtoRes messageDtoRes = mailFeignClient.sendMail(mailDtoReq);
+            logger.info(messageDtoRes.getMessage());
+        }catch (FeignException e){
+            logger.info("El microservicio no esta en funcionamiento: ".concat(e.getMessage()));
+        }
     }
 
 

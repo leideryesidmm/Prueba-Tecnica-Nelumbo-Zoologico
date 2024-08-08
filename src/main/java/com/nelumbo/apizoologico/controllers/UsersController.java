@@ -5,7 +5,7 @@ import com.nelumbo.apizoologico.services.dto.req.UsersDtoReq;
 import com.nelumbo.apizoologico.services.dto.res.UsersDtoRes;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,50 +19,44 @@ public class UsersController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<UsersDtoRes> updateUser(@PathVariable Long id, @Valid @RequestBody UsersDtoReq usersDtoReq) {
-        UsersDtoRes response = this.usersService.updateUser(id, usersDtoReq);
-        return ResponseEntity.ok(response);
+    public UsersDtoRes updateUser(@PathVariable Long id, @Valid @RequestBody UsersDtoReq usersDtoReq) {
+        return this.usersService.updateUser(id, usersDtoReq);
     }
-
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<UsersDtoRes> getUserById(@PathVariable Long id) {
-        UsersDtoRes response = this.usersService.getUserById(id);
-        return ResponseEntity.ok(response);
+    public UsersDtoRes getUserById(@PathVariable Long id) {
+        return this.usersService.getUserById(id);
     }
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<UsersDtoRes>> getAllUsers() {
-        List<UsersDtoRes> response = this.usersService.getAllUsers();
-        return ResponseEntity.ok(response);
+    public List<UsersDtoRes> getAllUsers() {
+        return this.usersService.getAllUsers();
     }
     @GetMapping("/disabled")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<UsersDtoRes>> getAllUsersDisable() {
-        List<UsersDtoRes> response = this.usersService.getDisabledUsers();
-        return ResponseEntity.ok(response);
+    public List<UsersDtoRes> getAllUsersDisable() {
+        return this.usersService.getDisabledUsers();
     }
     @GetMapping("/enabled")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<UsersDtoRes>> getAllUsersEnable() {
-        List<UsersDtoRes> response = this.usersService.getEnabledUsers();
-        return ResponseEntity.ok(response);
+    public List<UsersDtoRes> getAllUsersEnable() {
+        return this.usersService.getEnabledUsers();
     }
     @PutMapping("/{id}/disable")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> disableUser(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void disableUser(@PathVariable Long id) {
         usersService.disableUser(id);
-        return ResponseEntity.noContent().build();
     }
     @PutMapping("/{id}/enable")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> enableUser(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void enableUser(@PathVariable Long id) {
         usersService.enableUser(id);
-        return ResponseEntity.noContent().build();
     }
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable Long id) {
         usersService.deleteUser(id);
-        return ResponseEntity.noContent().build();
     }}

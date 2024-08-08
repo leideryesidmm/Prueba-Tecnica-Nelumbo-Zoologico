@@ -2,8 +2,6 @@ package com.nelumbo.apizoologico.exceptions;
 
 import com.nelumbo.apizoologico.services.dto.res.MessageDtoRes;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,9 +26,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public List<MessageDtoRes> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         List<MessageDtoRes> errors = new ArrayList<>();
-        e.getBindingResult().getAllErrors().forEach(error -> {
-            errors.add(new MessageDtoRes(error.getDefaultMessage()));
-        });
+        e.getBindingResult().getAllErrors().forEach(error -> errors.add(new MessageDtoRes(error.getDefaultMessage())));
         return errors;
     }
     @ExceptionHandler(ResourceNotFoundException.class)

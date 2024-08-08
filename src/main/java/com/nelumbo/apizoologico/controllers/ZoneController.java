@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,41 +19,35 @@ public class ZoneController {
     private final ZoneService zoneService;
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ZoneDtoRes> createZone(@Valid @RequestBody ZonaDtoReq zonaDtoReq) {
-            ZoneDtoRes response = zoneService.createZone(zonaDtoReq);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ZoneDtoRes createZone(@Valid @RequestBody ZonaDtoReq zonaDtoReq) {
+            return zoneService.createZone(zonaDtoReq);
     }
-
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ZoneDtoRes> updateZone(@PathVariable Long id, @Valid @RequestBody ZonaDtoReq zonaDtoReq) {
-            ZoneDtoRes response = zoneService.updateZone(id, zonaDtoReq);
-            return ResponseEntity.ok(response);
+    public ZoneDtoRes updateZone(@PathVariable Long id, @Valid @RequestBody ZonaDtoReq zonaDtoReq) {
+            return zoneService.updateZone(id, zonaDtoReq);
     }
-
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('JEFE') or hasRole('EMPLEADO')")
-    public ResponseEntity<ZoneDtoRes> getZoneById(@PathVariable Long id) {
-            ZoneDtoRes response = zoneService.getZoneById(id);
-            return ResponseEntity.ok(response);
+    public ZoneDtoRes getZoneById(@PathVariable Long id) {
+            return zoneService.getZoneById(id);
     }
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Page<ZoneDtoRes>> getAllZone(Pageable pageable) {
-            Page<ZoneDtoRes> response = zoneService.getAllZone(pageable);
-            return ResponseEntity.ok(response);
+    public Page<ZoneDtoRes> getAllZone(Pageable pageable) {
+            return zoneService.getAllZone(pageable);
     }
     @GetMapping(value="user")
     @PreAuthorize("hasRole('EMPLEADO') or hasRole('JEFE')")
-    public ResponseEntity<Page<ZoneDtoRes>> getAllZoneByUser(Pageable pageable) {
-        Page<ZoneDtoRes> response = zoneService.getAllZoneByUser(pageable);
-        return ResponseEntity.ok(response);
+    public Page<ZoneDtoRes> getAllZoneByUser(Pageable pageable) {
+        return zoneService.getAllZoneByUser(pageable);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteZone(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteZone(@PathVariable Long id) {
             zoneService.deleteZone(id);
-            return ResponseEntity.noContent().build();
     }
 }

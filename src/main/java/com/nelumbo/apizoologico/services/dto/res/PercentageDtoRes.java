@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MessageDtoRes {
-    private String message;
+public class PercentageDtoRes {
+    private double percentage;
 }
