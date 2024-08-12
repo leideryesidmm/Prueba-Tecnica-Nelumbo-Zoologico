@@ -10,7 +10,7 @@ public class AnimalDtoReq{
     @NotNull
     private Long id;
     @NotBlank
-    private String specie;
+    private String species;
     @NotBlank
     private String name;
 }
