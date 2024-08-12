@@ -72,7 +72,7 @@ public class CommentService {
         return this.modelMapper.map(savedComment, CommentDtoRes.class);
     }
 
-    private void sendMail(Comment savedComment) {
+    public void sendMail(Comment savedComment) {
         MailDtoReq mailDtoReq=new MailDtoReq();
         mailDtoReq.setDestinationEmail(savedComment.getAnimal().getSpecies().getZone().getJefe().getUserEmail());
         mailDtoReq.setWriter(
@@ -84,6 +84,7 @@ public class CommentService {
                 new AnimalDtoReq(savedComment.getAnimal().getId(),
                         savedComment.getAnimal().getSpecies().getName(),savedComment.getAnimal().getName()));
         mailDtoReq.setMessage(savedComment.getMenssage());
+        mailDtoReq.setDate(savedComment.getDate());
         try{
             MessageDtoRes messageDtoRes = mailFeignClient.sendMail(mailDtoReq);
             logger.info(messageDtoRes.getMessage());

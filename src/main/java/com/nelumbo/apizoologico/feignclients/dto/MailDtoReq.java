@@ -4,6 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Data
 public class MailDtoReq {
     @NotBlank
@@ -14,4 +17,6 @@ public class MailDtoReq {
     private WriterDtoReq writer;
     @NotBlank
     private String message;
+    @NotNull
+    private LocalDateTime date;
 }
